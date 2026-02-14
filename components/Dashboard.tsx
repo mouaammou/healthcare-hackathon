@@ -21,7 +21,7 @@ const MoroccoMap = dynamic(
           <span className="text-xs text-muted-foreground">Loading map...</span>
         </div>
       </div>
-    ),
+    )
   }
 )
 
@@ -42,7 +42,7 @@ export function Dashboard() {
       .finally(() => setLoading(false))
   }, [])
 
-  const handleSelectRegion = useCallback((region: ProcessedRegion) => {
+  const handleSelectRegion = useCallback((region: ProcessedRegion | null) => {
     setSelectedRegion(region)
   }, [])
 
@@ -66,12 +66,12 @@ export function Dashboard() {
       <DashboardHeader regions={regions} />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="hidden w-80 flex-col gap-3 overflow-y-auto border-r border-border bg-card p-4 lg:flex">
+        {/* Sidebar - light gray like screenshot */}
+        <aside className="hidden w-80 flex-col gap-3 overflow-y-auto border-r border-border bg-[#F9FAFB] p-4 lg:flex">
           <AlertsBanner />
           <NationalSummary />
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
               All Regions
             </span>
             <RegionList
@@ -93,7 +93,7 @@ export function Dashboard() {
           {/* Mobile region selector */}
           <div className="absolute bottom-4 left-4 right-4 lg:hidden">
             <select
-              className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-card-foreground"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm text-foreground shadow-sm"
               value={selectedRegion?.region_name ?? ""}
               onChange={(e) => {
                 const region = regions.find((r) => r.region_name === e.target.value)

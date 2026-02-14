@@ -27,35 +27,27 @@ export function RegionList({ regions, selectedRegion, onSelectRegion }: RegionLi
             onClick={() => onSelectRegion(region)}
             className={`group flex items-center justify-between rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
               isSelected
-                ? "border-primary/50 bg-primary/15 ring-1 ring-primary/30"
-                : "border-white/10 bg-secondary/30 hover:border-white/20 hover:bg-secondary/50"
+                ? "border-border bg-[#E8E8E8] text-foreground"
+                : "border-border bg-white hover:bg-muted/50 text-foreground"
             }`}
           >
             <div className="flex min-w-0 flex-1 items-center gap-3">
               <div
                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
-                  isSelected ? "bg-primary/30" : "bg-white/5"
+                  isSelected ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
                 }`}
               >
-                <MapPin
-                  className={`h-4 w-4 ${
-                    isSelected ? "text-primary" : "text-muted-foreground"
-                  }`}
-                />
+                <MapPin className="h-4 w-4" />
               </div>
-              <span
-                className={`truncate text-sm font-semibold ${
-                  isSelected ? "text-foreground" : "text-card-foreground"
-                }`}
-              >
+              <span className="truncate text-sm font-semibold">
                 {region.region_name}
               </span>
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <RiskBadge level={region.overall_level} size="sm" />
               <ChevronRight
-                className={`h-4 w-4 transition-transform ${
-                  isSelected ? "text-primary" : "text-muted-foreground opacity-0 group-hover:opacity-100"
+                className={`h-4 w-4 text-muted-foreground transition-transform ${
+                  isSelected ? "text-foreground" : "opacity-0 group-hover:opacity-100"
                 }`}
               />
             </div>

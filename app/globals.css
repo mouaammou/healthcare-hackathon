@@ -13,42 +13,43 @@
 
 @layer base {
   :root {
-    --background: 222 47% 5%;
-    --foreground: 210 30% 96%;
-    --card: 222 40% 8%;
-    --card-foreground: 210 30% 96%;
-    --popover: 222 40% 8%;
-    --popover-foreground: 210 30% 96%;
-    --primary: 167 72% 42%;
-    --primary-foreground: 222 47% 5%;
-    --secondary: 222 35% 12%;
-    --secondary-foreground: 210 25% 92%;
-    --muted: 222 30% 14%;
-    --muted-foreground: 215 20% 58%;
-    --accent: 167 72% 42%;
-    --accent-foreground: 222 47% 5%;
-    --destructive: 0 84% 55%;
+    /* Light theme – financial dashboard style (white, light gray, vibrant green/orange/red) */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 13% 25%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 222 30% 16%;
-    --input: 222 30% 16%;
-    --ring: 167 72% 42%;
-    --chart-1: 152 69% 48%;
-    --chart-2: 38 95% 52%;
-    --chart-3: 0 84% 55%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 142 71% 45%;
+    --chart-1: 142 71% 45%;
+    --chart-2: 38 92% 50%;
+    --chart-3: 0 72% 51%;
     --chart-4: 199 89% 48%;
     --chart-5: 270 60% 55%;
-    --radius: 0.5rem;
-    --risk-low: 152 69% 48%;
-    --risk-medium: 38 95% 52%;
-    --risk-high: 0 84% 55%;
-    --sidebar-background: 222 45% 6%;
-    --sidebar-foreground: 210 30% 96%;
-    --sidebar-primary: 167 72% 42%;
-    --sidebar-primary-foreground: 222 47% 5%;
-    --sidebar-accent: 222 35% 12%;
-    --sidebar-accent-foreground: 210 25% 92%;
-    --sidebar-border: 222 30% 14%;
-    --sidebar-ring: 167 72% 42%;
+    --radius: 0.625rem;
+    --risk-low: 142 71% 45%;
+    --risk-medium: 32 95% 44%;
+    --risk-high: 0 72% 51%;
+    --sidebar-background: 220 14% 98%;
+    --sidebar-foreground: 220 13% 18%;
+    --sidebar-primary: 142 71% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 13% 91%;
+    --sidebar-accent-foreground: 220 13% 18%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 71% 45%;
   }
 }
 
@@ -62,23 +63,15 @@
   }
 }
 
-/* Health Prediction Command Center - subtle scanline effect */
+/* Light dashboard – clean cards and subtle shadows */
 @layer components {
   .command-bg {
-    background:
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(222 45% 4%) 100%),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0 0 0 / 0.03) 2px,
-        rgba(0 0 0 / 0.03) 4px
-      );
+    background: hsl(var(--background));
   }
   .glass-panel {
-    @apply border border-white/5 bg-white/[0.02] backdrop-blur-sm;
+    @apply border border-border bg-card shadow-sm;
   }
-  .risk-glow-low { box-shadow: 0 0 20px -4px hsl(152 69% 48% / 0.3); }
-  .risk-glow-medium { box-shadow: 0 0 20px -4px hsl(38 95% 52% / 0.3); }
-  .risk-glow-high { box-shadow: 0 0 20px -4px hsl(0 84% 55% / 0.4); }
+  .risk-glow-low { box-shadow: 0 0 0 1px hsl(var(--risk-low) / 0.2); }
+  .risk-glow-medium { box-shadow: 0 0 0 1px hsl(var(--risk-medium) / 0.2); }
+  .risk-glow-high { box-shadow: 0 0 0 1px hsl(var(--risk-high) / 0.25); }
 }

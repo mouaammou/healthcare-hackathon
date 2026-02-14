@@ -17,25 +17,25 @@ const levelConfig: Record<RiskLevel, {
   glow?: string
 }> = {
   LOW: {
-    bg: "bg-emerald-500/15",
-    text: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+    text: "text-emerald-700",
     label: "Low",
-    dot: "bg-emerald-400",
-    border: "border-emerald-500/40",
+    dot: "bg-emerald-500",
+    border: "border-emerald-500/30",
   },
   MEDIUM: {
-    bg: "bg-amber-500/15",
-    text: "text-amber-400",
+    bg: "bg-amber-500/10",
+    text: "text-amber-700",
     label: "Medium",
-    dot: "bg-amber-400",
-    border: "border-amber-500/40",
+    dot: "bg-amber-500",
+    border: "border-amber-500/30",
   },
   HIGH: {
-    bg: "bg-red-500/15",
-    text: "text-red-400",
+    bg: "bg-red-500/10",
+    text: "text-red-600",
     label: "High",
-    dot: "bg-red-400 animate-pulse",
-    border: "border-red-500/50",
+    dot: "bg-red-500 animate-pulse",
+    border: "border-red-500/30",
     glow: "risk-glow-high",
   },
 }
@@ -52,7 +52,7 @@ export function RiskBadge({ level, score, size = "md", className }: RiskBadgePro
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-md border font-semibold uppercase tracking-wider",
+        "inline-flex items-center rounded-full border font-semibold uppercase tracking-wider shadow-sm",
         config.bg,
         config.text,
         config.border,

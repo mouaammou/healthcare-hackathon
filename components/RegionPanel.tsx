@@ -71,18 +71,18 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
 
   return (
     <div
-      className={`absolute right-0 top-0 z-[1000] h-full w-full max-w-[420px] overflow-y-auto border-l border-white/10 bg-card/95 shadow-2xl backdrop-blur-xl transition-transform duration-200 ease-out ${
+      className={`absolute right-0 top-0 z-[1000] h-full w-full max-w-[420px] overflow-y-auto border-l border-border bg-white shadow-xl transition-transform duration-200 ease-out ${
         visible ? "translate-x-0" : "translate-x-full"
       }`}
     >
       {/* Header */}
-      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-card/95 px-5 py-4 backdrop-blur-xl">
+      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-white px-5 py-4">
         <h2 className="text-lg font-bold tracking-tight text-foreground">
           {region.region_name}
         </h2>
         <button
           onClick={handleClose}
-          className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           aria-label="Close panel"
         >
           <X className="h-5 w-5" />
@@ -91,14 +91,14 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
 
       <div className="flex flex-col gap-5 p-5">
         {/* Overall Risk */}
-        <div className="rounded-xl border border-white/10 bg-secondary/30 p-5">
+        <div className="rounded-xl border border-border bg-muted/30 p-5 shadow-sm">
           <span className="mb-3 block text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             Risk Level
           </span>
           <div className="flex items-center justify-between gap-4">
             <RiskBadge level={region.overall_level} score={region.overall_score} size="lg" />
           </div>
-          <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+          <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-muted">
             <div
               className="h-full rounded-full transition-all duration-700 ease-out"
               style={{
@@ -120,13 +120,13 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
               return (
                 <div
                   key={key}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-secondary/20 px-4 py-3"
+                  className="flex items-center justify-between rounded-xl border border-border bg-white px-4 py-3 shadow-sm"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5">
-                      <Icon className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                      <Icon className="h-4 w-4" />
                     </div>
-                    <span className="text-sm font-semibold text-card-foreground">
+                    <span className="text-sm font-semibold text-foreground">
                       {categoryLabels[key]}
                     </span>
                   </div>
@@ -153,37 +153,37 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
                 icon: Thermometer,
                 label: "Temp",
                 value: `${region.indicators.temperature}°C`,
-                color: "text-red-400",
+                color: "text-red-500",
               },
               {
                 icon: CloudRain,
                 label: "Humidity",
                 value: `${region.indicators.humidity}%`,
-                color: "text-blue-400",
+                color: "text-blue-500",
               },
               {
                 icon: Beaker,
                 label: "Water",
                 value: `${region.indicators.water_quality_index}/100`,
-                color: "text-emerald-400",
+                color: "text-emerald-600",
               },
               {
                 icon: Users,
                 label: "Population",
                 value: `${(region.indicators.population / 1000000).toFixed(1)}M`,
-                color: "text-amber-400",
+                color: "text-amber-600",
               },
             ].map(({ icon: Icon, label, value, color }) => (
               <div
                 key={label}
-                className="flex items-center gap-3 rounded-xl border border-white/10 bg-secondary/20 p-3"
+                className="flex items-center gap-3 rounded-xl border border-border bg-white p-3 shadow-sm"
               >
                 <Icon className={`h-4 w-4 ${color}`} />
                 <div className="min-w-0 flex-1">
                   <span className="block text-[10px] text-muted-foreground">
                     {label}
                   </span>
-                  <span className="font-mono text-sm font-bold tabular-nums text-card-foreground">
+                  <span className="font-mono text-sm font-bold tabular-nums text-foreground">
                     {value}
                   </span>
                 </div>
@@ -193,10 +193,10 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
         </div>
 
         {/* AI Analysis */}
-        <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+        <div className="rounded-xl border border-border bg-primary/5 p-4 shadow-sm">
           <div className="mb-3 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20">
-              <Radio className="h-4 w-4 text-primary" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Radio className="h-4 w-4" />
             </div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
               Prediction Analysis
@@ -210,7 +210,7 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
               </span>
             </div>
           ) : (
-            <p className="text-sm leading-relaxed text-card-foreground">
+            <p className="text-sm leading-relaxed text-foreground">
               {explanation}
             </p>
           )}

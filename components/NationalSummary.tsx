@@ -26,11 +26,11 @@ export function NationalSummary() {
   }, [])
 
   return (
-    <div className="rounded-xl border border-white/10 bg-secondary/30 p-4">
+    <div className="rounded-xl border border-border bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20">
-            <Radio className="h-4 w-4 text-primary" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Radio className="h-4 w-4" />
           </div>
           <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
             National Brief
@@ -43,7 +43,7 @@ export function NationalSummary() {
           <span className="text-sm text-muted-foreground">Loading prediction...</span>
         </div>
       ) : data ? (
-        <p className="text-sm leading-relaxed text-card-foreground">
+        <p className="text-sm leading-relaxed text-foreground">
           {data.summary}
         </p>
       ) : (

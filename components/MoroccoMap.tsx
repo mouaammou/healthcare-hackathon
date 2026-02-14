@@ -7,7 +7,7 @@ import { moroccoRegionsGeoJSON } from "@/lib/moroccoGeo"
 interface MoroccoMapProps {
   regions: ProcessedRegion[]
   selectedRegion: ProcessedRegion | null
-  onSelectRegion: (region: ProcessedRegion) => void
+  onSelectRegion: (region: ProcessedRegion | null) => void
 }
 
 function getRiskColor(level: RiskLevel): string {
@@ -24,11 +24,11 @@ function getRiskColor(level: RiskLevel): string {
 function getRiskFillOpacity(level: RiskLevel): number {
   switch (level) {
     case "LOW":
-      return 0.4
+      return 0.45
     case "MEDIUM":
-      return 0.5
+      return 0.55
     case "HIGH":
-      return 0.6
+      return 0.65
   }
 }
 
@@ -64,13 +64,14 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
         const region = regionMap.get(name)
         const level = region?.overall_level ?? "LOW"
         const isSelected = selectedRef.current?.region_name === name
-
+        const fillColor = getRiskColor(level)
+        // Selected: slightly brighter fill, subtle border (no heavy outline)
         return {
-          fillColor: getRiskColor(level),
-          fillOpacity: isSelected ? 0.85 : getRiskFillOpacity(level),
-          color: isSelected ? "#1e40af" : "#ffffff",
-          weight: isSelected ? 3 : 1.5,
-          opacity: 1,
+          fillColor,
+          fillOpacity: isSelected ? 0.88 : getRiskFillOpacity(level),
+          color: "#ffffff",
+          weight: isSelected ? 2 : 1.5,
+          opacity: isSelected ? 0.9 : 0.85,
         }
       },
       onEachFeature: (feature, layer) => {
@@ -78,7 +79,9 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
         const region = regionMap.get(name)
 
         if (region) {
-          // Tooltip on hover
+          const pop = region.indicators.population
+          const wq = region.indicators.water_quality_index
+          const popStr = pop >= 1e6 ? `${(pop / 1e6).toFixed(1)}M` : pop.toLocaleString()
           layer.bindTooltip(
             `<div style="font-family:system-ui;padding:4px 0;min-width:180px;">
               <strong style="font-size:14px;">${name}</strong><br/>
@@ -89,8 +92,8 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
                 <span style="opacity:0.7;margin-left:4px;">(${region.overall_score.toFixed(1)})</span>
               </div>
               <div style="margin-top:6px;font-size:11px;opacity:0.8;line-height:1.4;">
-                Population: ${region.population}<br/>
-                Water Quality: ${region.water_quality_index}/100
+                Population: ${popStr}<br/>
+                Water Quality: ${wq}/100
               </div>
             </div>`,
             {
@@ -101,23 +104,20 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
             }
           )
 
-          // Click to select region
           layer.on("click", (e) => {
             onSelectRef.current(region)
             L.DomEvent.stopPropagation(e)
           })
 
-          // Hover effects
           layer.on("mouseover", (e) => {
             const target = e.target
             const isCurrentlySelected = selectedRef.current?.region_name === name
-
             target.setStyle({
-              fillOpacity: 0.9,
-              weight: isCurrentlySelected ? 3 : 2.5,
-              color: isCurrentlySelected ? "#1e40af" : "#60a5fa",
+              fillOpacity: 0.92,
+              weight: isCurrentlySelected ? 2 : 2,
+              color: "#ffffff",
+              opacity: 0.95,
             })
-
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
               target.bringToFront()
             }
@@ -132,9 +132,9 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
       },
     }).addTo(mapRef.current)
 
-    // Fit bounds to show all of Morocco
     const bounds = geoLayerRef.current.getBounds()
-    mapRef.current.fitBounds(bounds, { padding: [20, 20] })
+    mapRef.current.fitBounds(bounds, { padding: [24, 24] })
+    mapRef.current.setMaxBounds(bounds.pad(0.15))
   }, [])
 
   useEffect(() => {
@@ -144,32 +144,28 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
 
     async function init() {
       const L = (await import("leaflet")).default
+      // @ts-expect-error - Leaflet CSS has no type declarations
       await import("leaflet/dist/leaflet.css")
 
       if (cancelled || !containerRef.current) return
 
       mapRef.current = L.map(containerRef.current, {
-        center: [31.7917, -7.0926], // Center of Morocco
+        center: [31.7917, -7.0926],
         zoom: 6,
-        zoomControl: true,
+        zoomControl: false,
         attributionControl: false,
-        scrollWheelZoom: true,
+        scrollWheelZoom: false,
         dragging: true,
-        doubleClickZoom: true,
-        touchZoom: true,
+        doubleClickZoom: false,
+        touchZoom: false,
         minZoom: 5,
         maxZoom: 10,
       })
 
-      // Add zoom control in top-right
+      // Zoom only via buttons
       L.control.zoom({ position: "topright" }).addTo(mapRef.current)
 
-      // Light basemap for better visibility
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-      }).addTo(mapRef.current)
-
+      // No world tiles – Morocco only on a clean background (handled by CSS .leaflet-container)
       buildGeoLayer()
 
       // Click on map background to deselect
@@ -195,22 +191,16 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
     buildGeoLayer()
   }, [regions, selectedRegion, buildGeoLayer])
 
-  // Zoom to selected region
+  // Pan to center selected region (no zoom change – zoom only via buttons)
   useEffect(() => {
     if (!mapRef.current || !geoLayerRef.current || !selectedRegion) return
 
-    const L = require("leaflet")
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     geoLayerRef.current.eachLayer((layer: any) => {
       const name = layer.feature?.properties?.name ?? ""
       if (name === selectedRegion.region_name) {
-        const bounds = layer.getBounds()
-        mapRef.current.fitBounds(bounds, {
-          padding: [50, 50],
-          maxZoom: 8,
-          animate: true,
-          duration: 0.5
-        })
+        const center = layer.getBounds().getCenter()
+        mapRef.current.panTo(center, { animate: true, duration: 0.25 })
       }
     })
   }, [selectedRegion])
@@ -233,10 +223,11 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
           border-top-color: rgba(255, 255, 255, 0.98) !important;
         }
         .leaflet-container {
-          background: #f9fafb !important;
+          background: linear-gradient(145deg, #f3f4f6 0%, #e5e7eb 100%) !important;
           font-family: system-ui, -apple-system, sans-serif !important;
           cursor: grab !important;
         }
+        .leaflet-tile-pane { display: none !important; }
         .leaflet-container:active {
           cursor: grabbing !important;
         }
