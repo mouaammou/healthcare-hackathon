@@ -154,16 +154,20 @@ export function MoroccoMap({ regions, selectedRegion, onSelectRegion }: MoroccoM
         zoom: 6,
         zoomControl: false,
         attributionControl: false,
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
+        wheelDebounceTime: 50,
+        wheelPxPerZoomLevel: 70,
+        zoomSnap: 0,
+        zoomDelta: 0.5,
         dragging: true,
         doubleClickZoom: false,
-        touchZoom: false,
+        touchZoom: true,
         minZoom: 5,
         maxZoom: 10,
       })
 
-      // Zoom only via buttons
-      L.control.zoom({ position: "topright" }).addTo(mapRef.current)
+      // Zoom control on the left
+      L.control.zoom({ position: "topleft" }).addTo(mapRef.current)
 
       // No world tiles – Morocco only on a clean background (handled by CSS .leaflet-container)
       buildGeoLayer()

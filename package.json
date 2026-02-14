@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "node -e \"var v=process.version.slice(1).split('.');if(parseInt(v[0],10)<20){console.error('\\n  Node 20+ required (Next.js 16). Current: '+process.version+'\\n  Run: source ~/.zshrc && nvm use\\n');process.exit(1)}\" && next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

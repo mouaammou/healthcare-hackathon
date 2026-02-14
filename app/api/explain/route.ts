@@ -1,6 +1,27 @@
 import { NextResponse } from "next/server"
 import { loadProcessedRegions } from "@/lib/parser"
-import { generateRegionExplanation } from "@/lib/geminiService"
+import type { ProcessedRegion } from "@/lib/types"
+
+function buildRegionExplanation(region: ProcessedRegion): string {
+  const { region_name, overall_level, overall_score, categories, indicators } =
+    region
+  const highCats = Object.entries(categories)
+    .filter(([, c]) => c.level === "HIGH")
+    .map(([k]) => k.replace("_", "-"))
+
+  const lines: string[] = [
+    `${region_name} is currently at ${overall_level} overall risk (score: ${overall_score.toFixed(1)}).`,
+  ]
+  if (highCats.length > 0) {
+    lines.push(
+      `Elevated risk in: ${highCats.join(", ")}.`
+    )
+  }
+  lines.push(
+    `Conditions: temperature ${indicators.temperature}°C, humidity ${indicators.humidity}%, water quality index ${indicators.water_quality_index}/100.`
+  )
+  return lines.join(" ")
+}
 
 export async function GET(request: Request) {
   try {
@@ -26,7 +47,7 @@ export async function GET(request: Request) {
       )
     }
 
-    const explanation = await generateRegionExplanation(region)
+    const explanation = buildRegionExplanation(region)
 
     return NextResponse.json({ region_name: region.region_name, explanation })
   } catch (error) {
