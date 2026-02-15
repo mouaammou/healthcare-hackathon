@@ -25,7 +25,7 @@ export function DashboardHeader({ regions }: DashboardHeaderProps) {
             </h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            AI-powered early warning system for vector-borne diseases
+            AI-powered early warning system for diseases
           </p>
         </div>
       </div>

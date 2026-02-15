@@ -3,7 +3,7 @@ import { loadProcessedRegions } from "@/lib/parser"
 import type { AlertData, ProcessedRegion } from "@/lib/types"
 
 const catLabels: Record<string, string> = {
-  vector_borne: "vector-borne",
+  vector_borne: "Parasitic Infections",
   water_food_borne: "water- and food-borne",
   respiratory: "viral respiratory",
   zoonotic_plague: "zoonotic and plague",

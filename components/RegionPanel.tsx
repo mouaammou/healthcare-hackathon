@@ -30,7 +30,7 @@ const categoryIcons = {
 }
 
 const categoryLabels: Record<string, string> = {
-  vector_borne: "Vector-Borne",
+  vector_borne: "Parasitic Infections",
   water_food_borne: "Water- & Food-Borne",
   respiratory: "Viral Respiratory",
   zoonotic_plague: "Zoonotic & Plague",

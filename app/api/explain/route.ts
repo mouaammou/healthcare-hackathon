@@ -6,7 +6,7 @@ function buildRegionExplanation(region: ProcessedRegion): string {
   const { region_name, overall_level, overall_score, categories, indicators } =
     region
   const catLabels: Record<string, string> = {
-    vector_borne: "vector-borne",
+    vector_borne: "Parasitic Infections",
     water_food_borne: "water- and food-borne",
     respiratory: "viral respiratory",
     zoonotic_plague: "zoonotic and plague",
