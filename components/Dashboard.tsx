@@ -67,7 +67,6 @@ export function Dashboard() {
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar - light gray like screenshot */}
         <aside className="hidden w-80 flex-col gap-3 overflow-y-auto border-r border-border bg-[#F9FAFB] p-4 lg:flex">
-          <NationalSummary />
           <div className="flex flex-col gap-2">
             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
               All Regions

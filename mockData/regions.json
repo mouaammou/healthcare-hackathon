@@ -2,10 +2,11 @@
   {
     "region_name": "Tanger-Tetouan-Al Hoceima",
     "symptoms": {
-      "waterborne": 285,
+      "water_food_borne": 285,
       "vector_borne": 95,
       "respiratory": 580,
-      "other": 48
+      "zoonotic_plague": 24,
+      "climate_emerging": 24
     },
     "temperature": 22,
     "humidity": 72,
@@ -19,10 +20,11 @@
   {
     "region_name": "Oriental",
     "symptoms": {
-      "waterborne": 195,
+      "water_food_borne": 195,
       "vector_borne": 180,
       "respiratory": 340,
-      "other": 62
+      "zoonotic_plague": 31,
+      "climate_emerging": 31
     },
     "temperature": 29,
     "humidity": 42,
@@ -36,10 +38,11 @@
   {
     "region_name": "Fes-Meknes",
     "symptoms": {
-      "waterborne": 520,
+      "water_food_borne": 520,
       "vector_borne": 145,
       "respiratory": 780,
-      "other": 115
+      "zoonotic_plague": 58,
+      "climate_emerging": 57
     },
     "temperature": 27,
     "humidity": 56,
@@ -48,15 +51,16 @@
     "area_km2": 40075,
     "overall_level": "HIGH",
     "overall_score": 8.4,
-    "notes": "Historic cities with high population density. Poor water quality (48), severe air quality issues from urban congestion and industrial activity. High waterborne and respiratory symptoms."
+    "notes": "Historic cities with high population density. Poor water quality (48), severe air quality issues from urban congestion and industrial activity. High water- and food-borne and respiratory symptoms."
   },
   {
     "region_name": "Rabat-Sale-Kenitra",
     "symptoms": {
-      "waterborne": 275,
+      "water_food_borne": 275,
       "vector_borne": 88,
       "respiratory": 485,
-      "other": 42
+      "zoonotic_plague": 21,
+      "climate_emerging": 21
     },
     "temperature": 24,
     "humidity": 69,
@@ -70,10 +74,11 @@
   {
     "region_name": "Beni Mellal-Khenifra",
     "symptoms": {
-      "waterborne": 450,
+      "water_food_borne": 450,
       "vector_borne": 310,
       "respiratory": 520,
-      "other": 125
+      "zoonotic_plague": 63,
+      "climate_emerging": 62
     },
     "temperature": 32,
     "humidity": 48,
@@ -87,10 +92,11 @@
   {
     "region_name": "Casablanca-Settat",
     "symptoms": {
-      "waterborne": 560,
+      "water_food_borne": 560,
       "vector_borne": 165,
       "respiratory": 1020,
-      "other": 95
+      "zoonotic_plague": 48,
+      "climate_emerging": 47
     },
     "temperature": 25,
     "humidity": 71,
@@ -104,10 +110,11 @@
   {
     "region_name": "Marrakech-Safi",
     "symptoms": {
-      "waterborne": 640,
+      "water_food_borne": 640,
       "vector_borne": 420,
       "respiratory": 580,
-      "other": 135
+      "zoonotic_plague": 68,
+      "climate_emerging": 67
     },
     "temperature": 35,
     "humidity": 38,
@@ -121,10 +128,11 @@
   {
     "region_name": "Draa-Tafilalet",
     "symptoms": {
-      "waterborne": 320,
+      "water_food_borne": 320,
       "vector_borne": 365,
       "respiratory": 240,
-      "other": 72
+      "zoonotic_plague": 36,
+      "climate_emerging": 36
     },
     "temperature": 37,
     "humidity": 22,
@@ -138,10 +146,11 @@
   {
     "region_name": "Souss-Massa",
     "symptoms": {
-      "waterborne": 245,
+      "water_food_borne": 245,
       "vector_borne": 165,
       "respiratory": 380,
-      "other": 52
+      "zoonotic_plague": 26,
+      "climate_emerging": 26
     },
     "temperature": 28,
     "humidity": 52,
@@ -155,10 +164,11 @@
   {
     "region_name": "Guelmim-Oued Noun",
     "symptoms": {
-      "waterborne": 98,
+      "water_food_borne": 98,
       "vector_borne": 72,
       "respiratory": 115,
-      "other": 28
+      "zoonotic_plague": 14,
+      "climate_emerging": 14
     },
     "temperature": 31,
     "humidity": 28,
@@ -172,10 +182,11 @@
   {
     "region_name": "Laayoune-Sakia El Hamra",
     "symptoms": {
-      "waterborne": 58,
+      "water_food_borne": 58,
       "vector_borne": 42,
       "respiratory": 82,
-      "other": 18
+      "zoonotic_plague": 9,
+      "climate_emerging": 9
     },
     "temperature": 28,
     "humidity": 48,
@@ -189,10 +200,11 @@
   {
     "region_name": "Dakhla-Oued Ed-Dahab",
     "symptoms": {
-      "waterborne": 32,
+      "water_food_borne": 32,
       "vector_borne": 22,
       "respiratory": 48,
-      "other": 12
+      "zoonotic_plague": 6,
+      "climate_emerging": 6
     },
     "temperature": 26,
     "humidity": 58,

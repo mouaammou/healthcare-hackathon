@@ -2,11 +2,19 @@ import { NextResponse } from "next/server"
 import { loadProcessedRegions } from "@/lib/parser"
 import type { AlertData, ProcessedRegion } from "@/lib/types"
 
+const catLabels: Record<string, string> = {
+  vector_borne: "vector-borne",
+  water_food_borne: "water- and food-borne",
+  respiratory: "viral respiratory",
+  zoonotic_plague: "zoonotic and plague",
+  climate_emerging: "climate-sensitive and TADs",
+}
+
 function buildAlertMessage(region: ProcessedRegion): string {
   const highCats = Object.entries(region.categories)
     .filter(([, c]) => c.level === "HIGH")
-    .map(([k]) => k.replace("_", "-"))
-  return `High risk in ${region.region_name} (score: ${region.overall_score.toFixed(1)}). Elevated categories: ${highCats.length ? highCats.join(", ") : "multiple"}. Temperature ${region.indicators.temperature}°C, humidity ${region.indicators.humidity}%, water quality ${region.indicators.water_quality_index}/100.`
+    .map(([k]) => catLabels[k] ?? k)
+  return `High endemic risk in ${region.region_name} (score: ${region.overall_score.toFixed(1)}). Elevated: ${highCats.length ? highCats.join(", ") : "multiple"}. Climate ${region.indicators.temperature}°C, water & sanitation ${region.indicators.water_quality_index}/100.`
 }
 
 export async function GET() {

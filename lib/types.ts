@@ -1,10 +1,11 @@
 export interface RegionRawData {
   region_name: string
   symptoms: {
-    waterborne: number
     vector_borne: number
+    water_food_borne: number
     respiratory: number
-    other: number
+    zoonotic_plague: number
+    climate_emerging: number
   }
   temperature: number
   humidity: number
@@ -24,10 +25,11 @@ export interface ProcessedRegion {
   overall_score: number
   overall_level: RiskLevel
   categories: {
-    waterborne: CategoryScore
     vector_borne: CategoryScore
+    water_food_borne: CategoryScore
     respiratory: CategoryScore
-    other: CategoryScore
+    zoonotic_plague: CategoryScore
+    climate_emerging: CategoryScore
   }
   indicators: {
     temperature: number
@@ -36,10 +38,11 @@ export interface ProcessedRegion {
     population: number
   }
   normalized: {
-    waterborne: number
     vector_borne: number
+    water_food_borne: number
     respiratory: number
-    other: number
+    zoonotic_plague: number
+    climate_emerging: number
   }
 }
 

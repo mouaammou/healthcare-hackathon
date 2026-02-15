@@ -16,17 +16,19 @@ function toProcessedRegion(row: MockRegionRow): ProcessedRegion {
     overall_score,
     overall_level,
     categories: {
-      waterborne: cat(),
       vector_borne: cat(),
+      water_food_borne: cat(),
       respiratory: cat(),
-      other: cat(),
+      zoonotic_plague: cat(),
+      climate_emerging: cat(),
     },
     indicators: { temperature, humidity, water_quality_index, population },
     normalized: {
-      waterborne: norm(symptoms.waterborne),
       vector_borne: norm(symptoms.vector_borne),
+      water_food_borne: norm(symptoms.water_food_borne),
       respiratory: norm(symptoms.respiratory),
-      other: norm(symptoms.other),
+      zoonotic_plague: norm(symptoms.zoonotic_plague),
+      climate_emerging: norm(symptoms.climate_emerging),
     },
   }
 }

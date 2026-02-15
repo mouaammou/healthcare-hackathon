@@ -5,20 +5,25 @@ import type { ProcessedRegion } from "@/lib/types"
 function buildRegionExplanation(region: ProcessedRegion): string {
   const { region_name, overall_level, overall_score, categories, indicators } =
     region
+  const catLabels: Record<string, string> = {
+    vector_borne: "vector-borne",
+    water_food_borne: "water- and food-borne",
+    respiratory: "viral respiratory",
+    zoonotic_plague: "zoonotic and plague",
+    climate_emerging: "climate-sensitive and TADs",
+  }
   const highCats = Object.entries(categories)
     .filter(([, c]) => c.level === "HIGH")
-    .map(([k]) => k.replace("_", "-"))
+    .map(([k]) => catLabels[k] ?? k)
 
   const lines: string[] = [
-    `${region_name} is currently at ${overall_level} overall risk (score: ${overall_score.toFixed(1)}).`,
+    `${region_name} is at ${overall_level} endemic risk (score: ${overall_score.toFixed(1)}).`,
   ]
   if (highCats.length > 0) {
-    lines.push(
-      `Elevated risk in: ${highCats.join(", ")}.`
-    )
+    lines.push(`Elevated in: ${highCats.join(", ")}.`)
   }
   lines.push(
-    `Conditions: temperature ${indicators.temperature}°C, humidity ${indicators.humidity}%, water quality index ${indicators.water_quality_index}/100.`
+    `Drivers: climate ${indicators.temperature}°C, vector suitability ${indicators.humidity}% humidity, water & sanitation index ${indicators.water_quality_index}/100, population ${(indicators.population / 1e6).toFixed(1)}M.`
   )
   return lines.join(" ")
 }

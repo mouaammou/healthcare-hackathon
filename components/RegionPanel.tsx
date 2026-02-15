@@ -6,9 +6,8 @@ import {
   Droplets,
   Bug,
   Wind,
-  HelpCircle,
-  Thermometer,
-  CloudRain,
+  Rabbit,
+  CloudSun,
   Beaker,
   Users,
   Loader2,
@@ -23,17 +22,19 @@ interface RegionPanelProps {
 }
 
 const categoryIcons = {
-  waterborne: Droplets,
   vector_borne: Bug,
+  water_food_borne: Droplets,
   respiratory: Wind,
-  other: HelpCircle,
+  zoonotic_plague: Rabbit,
+  climate_emerging: CloudSun,
 }
 
 const categoryLabels: Record<string, string> = {
-  waterborne: "Waterborne",
-  vector_borne: "Vector-borne",
-  respiratory: "Respiratory",
-  other: "Other / Unknown",
+  vector_borne: "Vector-Borne",
+  water_food_borne: "Water- & Food-Borne",
+  respiratory: "Viral Respiratory",
+  zoonotic_plague: "Zoonotic & Plague",
+  climate_emerging: "Climate-Sensitive & TADs",
 }
 
 export function RegionPanel({ region, onClose }: RegionPanelProps) {
@@ -142,36 +143,36 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
           </div>
         </div>
 
-        {/* Key Indicators */}
+        {/* Key Drivers (endemic context) */}
         <div>
           <span className="mb-3 block text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Indicators
+            Risk Drivers
           </span>
           <div className="grid grid-cols-2 gap-2">
             {[
               {
-                icon: Thermometer,
-                label: "Temp",
+                icon: CloudSun,
+                label: "Climate factor",
                 value: `${region.indicators.temperature}°C`,
-                color: "text-red-500",
+                color: "text-orange-600",
               },
               {
-                icon: CloudRain,
-                label: "Humidity",
-                value: `${region.indicators.humidity}%`,
-                color: "text-blue-500",
+                icon: Bug,
+                label: "Vector suitability",
+                value: `${region.indicators.humidity}% humidity`,
+                color: "text-amber-600",
               },
               {
                 icon: Beaker,
-                label: "Water",
+                label: "Water & sanitation",
                 value: `${region.indicators.water_quality_index}/100`,
                 color: "text-emerald-600",
               },
               {
                 icon: Users,
-                label: "Population",
+                label: "Population at risk",
                 value: `${(region.indicators.population / 1000000).toFixed(1)}M`,
-                color: "text-amber-600",
+                color: "text-slate-600",
               },
             ].map(({ icon: Icon, label, value, color }) => (
               <div
@@ -199,7 +200,7 @@ export function RegionPanel({ region, onClose }: RegionPanelProps) {
               <Radio className="h-4 w-4" />
             </div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-              Prediction Analysis
+              Endemic Risk Analysis
             </span>
           </div>
           {loading ? (
